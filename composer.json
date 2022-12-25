@@ -6,6 +6,7 @@
     "license": "GPL-3.0-or-later",
     "require": {
         "php": "^7.3|^8.0",
+        "danielcrt/pinata-laravel": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "2.1.0",
         "guzzlehttp/guzzle": "^7.0.1",

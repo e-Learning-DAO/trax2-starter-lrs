@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'pinata' => [
+        'api_key' => env('PINATA_API_KEY'),
+        'secret_key' => env('PINATA_API_SECRET')
+    ]
+
 ];

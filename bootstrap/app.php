@@ -41,6 +41,8 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->register(Pinata\Providers\PinataServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

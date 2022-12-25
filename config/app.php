@@ -183,6 +183,11 @@ return [
         Trax\XapiValidation\XapiValidationServiceProvider::class,
         Trax\XapiStore\XapiStoreServiceProvider::class,
         Trax\Lrs\LrsServiceProvider::class,
+
+        /*
+         * e-Learning-DAO...
+         */
+        \Pinata\Providers\PinataServiceProvider::class,
     ],
 
     /*
