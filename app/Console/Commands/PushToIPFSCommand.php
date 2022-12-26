@@ -43,30 +43,30 @@ class PushToIPFSCommand extends Command
         try {
             $start = time();
 
-            $maxId = PushToIPFS::max('id');
+            $maxStatementId = PushToIPFS::max('statement_id');
+            if($maxStatementId == null) $maxStatementId = 0;
 
-            if($maxId == null) $maxId = 0;
+            $statments = Statement::where('id', '>', $maxStatementId)->get();
 
-            $statements = Statement::where('id', '>', $maxId)->get();
+            foreach ($statments as $statment) {
 
-            foreach ($statements as $statement) {
+                $dataArr = get_object_vars($statment->data);
+                $response = Pinata::pinJSONToIPFS($dataArr);
 
-                $data = get_object_vars($statement->data);
-                $response = Pinata::pinJSONToIPFS($data);
+                $tableName = new PushToIPFS();
+                $tableName->statement_id = $statment->id;
+                $tableName->hash = $response['IpfsHash'];
+                $tableName->status = 1;
+                $tableName->processed_time = date("Y-m-d H:i:s");
+                $tableName->error = "";
+                $tableName->save();
 
-                $pushToIPFS = new PushToIPFS();
-                $pushToIPFS->statement_id = $statement->id;
-                $pushToIPFS->hash = $response['IpfsHash'];
-                $pushToIPFS->status = 1;
-                $pushToIPFS->processed_time = date("Y-m-d H:i:s");
-                $pushToIPFS->error = "";
-                $pushToIPFS->save();
-                $this->info($response['IpfsHash'] . " Posted");
+                $this->info($statment->id . " [".$response['IpfsHash'] . "] => posted");
             }
 
             $time = time() - $start;
 
-            $this->info(" ($time seconds)");
+            $this->info("Posting completed");
 
         } catch (\Exception $e) {
             $this->error($e->getMessage());
