@@ -50,23 +50,6 @@ Check that your PHP version and configuration is valid both for PHP Web & CLI.
 - Git
 - Composer 2
 
-
-## Upgrade
-
-### From TRAX LRS 2.0.x
-
-In order to upgrade TRAX LRS from version 2.0.x, you need to install the last release of TRAX LRS
-with a copy the `.env` file from your previous installation.
-
-The database schema must then be updated with the `php artisan migrate` command.
-
-### From previous versions
-
-Upgrading from versions older than 2.0.0 is not directly supported.
-However, you can install TRAX LRS 2.0.x as a new LRS and then migrate your xAPI statements with the
-[LRS connector](https://extended.traxlrs.com/docs/2.0/lrs).
-
-
 ## Fresh install
 
 ### First Steps
@@ -74,7 +57,7 @@ However, you can install TRAX LRS 2.0.x as a new LRS and then migrate your xAPI 
 Assuming that you want to install TRAX LRS in a folder named **traxlrs**:
 
 ```
-git clone https://github.com/trax-project/trax2-starter-lrs traxlrs
+git clone https://github.com/eLearningDAO/trax2-starter-lrs traxlrs
 cd traxlrs
 composer install
 ```
@@ -127,6 +110,13 @@ DB_USERNAME=postgres
 DB_PASSWORD=aaaaaa
 ```
 
+### Pinata
+Create your account at https://www.pinata.cloud/ and create the `API Key` from https://app.pinata.cloud/developers and configure in `.env` for following parameters.
+```
+PINATA_API_KEY=
+PINATA_API_SECRET=
+```
+
 ### App URL
 
 In the `.env` file, you must set the public URL of your TRAX LRS application :
@@ -160,6 +150,15 @@ php artisan admin:update
 php artisan admin:delete
 ```
 
+## Cron Job for Pinata Push 
+```
+php artisan trax:push2ipfs
+```
+
+## Configure Moodle to Pass xAPI data to TraxLRS
+1. Install `Logstore xAPI` from https://moodle.org/plugins/logstore_xapi
+2. Create the `client` in TraxLRS.
+3. Setup the credentials in `Logstore xAPI` in moodle.
 
 ## Production server
 
@@ -186,8 +185,6 @@ php artisan route:cache
 ```
 
 The `php artisan config:cache` command must be ran again after each config change.
-
-
 
 ## Known issues
 
