@@ -1,3 +1,13 @@
+### LRS-to-IPFS is a fork of [trax2-starter-lrs](https://github.com/trax-project/trax2-starter-lrs) a beaufutul project because simple, clean and effective.
+
+We added the feature of storing xAPI statements on IPFS, to allow users of saving permanently the learning experience and associate it with a personal Cardano crypto wallet.
+
+There are many other ways to achieve the same goal by adopting other LRSs and data transfers technique, however, we found this way to be quick and easy.
+
+The instructions below are slightly modified compared to the original project.
+
+---------------------------------------------------------------------
+
 # TRAX LRS 2.0.3 - Starter Edition
 
 
