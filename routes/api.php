@@ -19,4 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 
-Route::get('/get-pending-data', 'App\Http\Controllers\xAPIDataController@pendingdata');
+
+Route::middleware(['cors'])->group(function () {
+    Route::get('/get-pending-data', 'App\Http\Controllers\xAPIDataController@pendingdata');
+});
+
+

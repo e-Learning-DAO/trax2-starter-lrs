@@ -54,6 +54,7 @@ class PushToIPFSCommand extends Command
                 $response = Pinata::pinJSONToIPFS($dataArr);
 
                 $tableName = new PushToIPFS();
+                $tableName->wallet_address = "dummy";
                 $tableName->statement_id = $statment->id;
                 $tableName->hash = $response['IpfsHash'];
                 $tableName->status = 1;
