@@ -65,8 +65,6 @@ class PushToIPFSCommand extends Command
                 $this->info($statment->id . " [".$response['IpfsHash'] . "] => posted");
             }
 
-            $time = time() - $start;
-
             $this->info("Posting completed");
 
         } catch (\Exception $e) {
