@@ -16,11 +16,12 @@ class xAPIDataController extends Controller
     public function pendingData(Request $request)
     {
         $walletAddress = $request->get("walletaddress");
+        $limit = $request->get("limit", 10);
 
         $hashes = PushToIPFS::all()
         ->where("wallet_address", "=", $walletAddress)
         ->where("status", "=", 1)
-        ->take(2);
+        ->take($limit);
         return response()->json([
             'errorcode' => 0,
             'message' => "",
