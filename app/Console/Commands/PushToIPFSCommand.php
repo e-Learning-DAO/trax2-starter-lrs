@@ -53,7 +53,13 @@ class PushToIPFSCommand extends Command
                 $dataArr = get_object_vars($statment->data);
                 $response = Pinata::pinJSONToIPFS($dataArr);
 
+                if(!isset($statment->data->actor->account) || !isset($statment->data->actor->account->name)) {
+                    $this->info($statment->id . " => Wallet Address is missing, we cannot post this xapi statement.");
+                    continue;
+                }
+
                 $tableName = new PushToIPFS();
+                $tableName->wallet_address = $statment->data->actor->account->name;
                 $tableName->statement_id = $statment->id;
                 $tableName->hash = $response['IpfsHash'];
                 $tableName->status = 1;
@@ -63,8 +69,6 @@ class PushToIPFSCommand extends Command
 
                 $this->info($statment->id . " [".$response['IpfsHash'] . "] => posted");
             }
-
-            $time = time() - $start;
 
             $this->info("Posting completed");
 
