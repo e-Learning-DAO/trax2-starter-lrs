@@ -29,6 +29,25 @@ class xAPIDataController extends Controller
         ]);
     }
 
+    /**
+     * getting the all data which can be saved to Cardano.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllData(Request $request)
+    {
+        $walletAddress = $request->get("walletaddress");
+        $limit = $request->get("limit", 10);
+
+        $hashes = PushToIPFS::all()
+        ->where("wallet_address", "=", $walletAddress)
+        ->take($limit);
+        return response()->json([
+            'errorcode' => 0,
+            'message' => "",
+            'hashes' => $hashes
+        ]);
+    }
 
     public function saveStatus(Request $request)
     {
